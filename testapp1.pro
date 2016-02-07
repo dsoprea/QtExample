@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network webkitwidgets
+QT       += core gui network webkitwidgets bluetooth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     news.cpp \
-    utility.cpp
+    utility.cpp \
+    newslistitem.cpp
 
 HEADERS  += mainwindow.h \
     news.h \
-    utility.h
+    utility.h \
+    newslistitem.h
 
 FORMS    += mainwindow.ui

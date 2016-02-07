@@ -6,27 +6,23 @@
 #include <QUrl>
 #include <QWebFrame>
 #include <QWebElementCollection>
-#include <QListWidget>
 #include <QListWidgetItem>
 
+#include <qbluetoothglobal.h>
+#include <qbluetoothlocaldevice.h>
+
+// NOTE
+//
+// We manually added this, removed the "Ui" namespace block, and replaced occurrences of
+// Ui::MainWindow with Ui_MainWindow. The default construction isn't reflected in any of
+// the examples and we're encountering unexplanable build errors when adding new fields
+// to MainWindow.
+
+#include "ui_mainwindow.h"
 #include "news.h"
+#include "newslistitem.h"
 
-namespace Ui {
-class MainWindow;
-}
-
-class NewsListItem : public QListWidgetItem
-{
-public:
-    NewsListItem(int index, QString title, QString description, QString url);
-    const QString getUrl() const { return url; }
-
-private:
-    int index;
-    QString title;
-    QString description;
-    QString url;
-};
+QT_FORWARD_DECLARE_CLASS(QBluetoothDeviceDiscoveryAgent)
 
 class MainWindow : public QMainWindow
 {
@@ -39,16 +35,17 @@ public:
 private slots:
     void on_readNews_clicked();
     void on_loadWebpage_clicked();
-
     void on_webView_loadFinished(bool arg1);
-
+    void on_newsListWidget1_itemActivated(QListWidgetItem *item);
     void on_newsListWidget2_itemActivated(QListWidgetItem *item);
 
 private:
-    Ui::MainWindow *ui;
-    QStringListModel *news1ListSource;
-    QStringListModel *news2ListSource;
+
+// NOTE(dustin): This is a type generated automatically based on the name of the form.
+    Ui_MainWindow *ui;
+
     testapp::NewsFeed newsFeed;
+    QBluetoothDeviceDiscoveryAgent *discoveryAgent;
 
     void extractAndPopulateYahooNewsItems();
 };

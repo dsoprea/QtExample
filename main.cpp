@@ -1,18 +1,11 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-QApplication *app;
-MainWindow *rootWindow;
-
 int main(int argc, char *argv[])
 {
-    app = new QApplication(argc, argv);
-    rootWindow = new MainWindow();
-    rootWindow->show();
+    QApplication app(argc, argv);
+    MainWindow rootWindow;
+    rootWindow.show();
 
-    int result = app->exec();
-    delete rootWindow;
-    delete app;
-
-    return result;
+    return app.exec();
 }

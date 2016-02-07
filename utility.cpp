@@ -10,7 +10,9 @@ namespace testapp {
         QString text(message);
 
     // TODO(dustin): Debug why this doesn't present a popup.
-        QMessageBox(QMessageBox::Critical, title, text, QMessageBox::NoButton, rootWindow);
+
+// TODO(dustin): Fix this after we finish refactoring how the application is structured by default.
+//        QMessageBox(QMessageBox::Critical, title, text, QMessageBox::NoButton, rootWindow);
 
         qCritical(message);
     // TODO(dustin): Debug why this doesn't terminate (it used to).

@@ -3,50 +3,24 @@
 
 static QString rootUrl("http://news.yahoo.com");
 
-NewsListItem::NewsListItem(int index, QString title, QString description, QString url) {
-    this->index = index;
-    this->title = title;
-    this->description = description;
-    this->url = url;
-
-    setText(QString::number(index) + QString(": ") + title);
-}
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui_MainWindow),
+    newsFeed(ui)
 {
     ui->setupUi(this);
 
-    news1ListSource = new QStringListModel(this);
-    ui->newsView1->setModel(news1ListSource);
+//    newsFeed = new testapp::NewsFeed();
 }
 
 MainWindow::~MainWindow()
 {
-    delete news1ListSource;
-    delete news2ListSource;
-
+//    delete newsFeed;
     delete ui;
 }
 
 void MainWindow::on_readNews_clicked()
 {
-    QStringList list;
-    list << "item1";
-    list << "item2";
-    list << "item3";
-
-    news1ListSource->setStringList(list);
-
-//    std::cout << "Hello." << std::endl;
-    //ui->listView1->
-//    new QListViewItem( ui->listView1, "(1, 1)", "(1, 2)", "(1, 3)" );
-
-//    ui->listView1->addColumn( "Foo" );
-//    ui->listView1->addColumn( "Bar" );
-//    ui->listView1->addColumn( "Baz" );
-
     newsFeed.setTopItems();
 }
 
@@ -82,16 +56,23 @@ void MainWindow::extractAndPopulateYahooNewsItems()
         QWebElement descriptionElement = element.findFirst(descriptionSelector);
         QString description = descriptionElement.toPlainText();
 
-        NewsListItem *item = new NewsListItem(i, title, description, url);
+        testapp::NewsListItem *item = new testapp::NewsListItem(i, title, description, rootUrl + url);
         ui->newsListWidget2->addItem(item);
 
         i++;
     }
 }
 
+// A NY Times news item was double-clicked.
+void MainWindow::on_newsListWidget1_itemActivated(QListWidgetItem *item)
+{
+    testapp::NewsListItem *proper = (testapp::NewsListItem *)item;
+    ui->webView->setUrl(QUrl(proper->getUrl()));
+}
+
 // A Yahoo news item was double-clicked.
 void MainWindow::on_newsListWidget2_itemActivated(QListWidgetItem *item)
 {
-    NewsListItem *proper = (NewsListItem *)item;
-    ui->webView->setUrl(QUrl(rootUrl + proper->getUrl()));
+    testapp::NewsListItem *proper = (testapp::NewsListItem *)item;
+    ui->webView->setUrl(QUrl(proper->getUrl()));
 }
