@@ -29,6 +29,7 @@ namespace testapp
 
     // Initiate a news download.
     void NewsFeed::setNyTimesNews() {
+        qDebug("Setting NY Times news.");
 
 // TODO(dustin): Is there a nicer way to provide the query rather than in a complete URL?
         networkManager.get(QNetworkRequest(QString(url)));
@@ -38,7 +39,7 @@ namespace testapp
     void NewsFeed::newsReceived(QNetworkReply *reply)
     {
         if(reply->error() != QNetworkReply::NoError) {
-            qCritical("News response received, but error.");
+            qCritical("NY Times news response received, but error.");
             return;
         }
 

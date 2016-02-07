@@ -12,6 +12,7 @@
 #include <QJsonDocument>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QtPositioning/QGeoPositionInfoSource>
 
 #include "ui_mainwindow.h"
 #include "news.h"
@@ -20,6 +21,7 @@
 
 namespace testapp
 {
+    // Describes the class that knows how to get NY Times articles.
     class NewsFeed : public QObject {
         Q_OBJECT
 

@@ -4,11 +4,15 @@
 #include <QMainWindow>
 #include <QStringListModel>
 #include <QUrl>
+#include <QListWidgetItem>
+
 #include <QWebFrame>
 #include <QWebElementCollection>
-#include <QListWidgetItem>
+
 #include <QBluetoothDeviceInfo>
 #include <QBluetoothDeviceDiscoveryAgent>
+#include <QGeoPositionInfo>
+#include <QGeoPositionInfoSource>
 
 // NOTE
 //
@@ -20,6 +24,7 @@
 #include "ui_mainwindow.h"
 #include "news.h"
 #include "newslistitem.h"
+#include "utility.h"
 
 QT_FORWARD_DECLARE_CLASS(QBluetoothDeviceDiscoveryAgent)
 QT_FORWARD_DECLARE_CLASS(QBluetoothDeviceInfo)
@@ -40,6 +45,9 @@ private slots:
     void on_newsListWidget2_itemActivated(QListWidgetItem *item);
     void on_scanBluetooth_clicked();
 
+    void positionUpdated(QGeoPositionInfo gpsPos);
+    void positionError(QGeoPositionInfoSource::Error e);
+
     void addDevice(const QBluetoothDeviceInfo &info);
     void scanFinished();
 
@@ -50,6 +58,7 @@ private:
 
     testapp::NewsFeed newsFeed;
     QBluetoothDeviceDiscoveryAgent *discoveryAgent;
+    QGeoPositionInfoSource *gpsSource;
 
     void extractAndPopulateYahooNewsItems();
 };

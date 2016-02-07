@@ -23,13 +23,66 @@ MainWindow::MainWindow(QWidget *parent) :
         SIGNAL(finished()),
         this,
         SLOT(scanFinished()));
+
+    //QGeoPositionInfoSource::setPreferredPositioningMethods(QGeoPositionInfoSource::NonSatellitePositioningMethods);
+    gpsSource = QGeoPositionInfoSource::createDefaultSource(this);
+    if(gpsSource == NULL)
+    {
+        QString message("No location sources exist.");
+
+        qCritical(qPrintable(message));
+        ui->gpsPosition->setText(message);
+
+        QStringList sources = QGeoPositionInfoSource::availableSources();
+        if(sources.empty() == false) {
+            QString firstSource = sources[0];
+            qWarning("GPS not available, but we found another source: [%s]", qPrintable(firstSource));
+            gpsSource = QGeoPositionInfoSource::createSource(firstSource, this);
+        }
+    }
+
+    if(gpsSource != NULL) {
+        connect(
+            gpsSource,
+            SIGNAL(positionUpdated(QGeoPositionInfo)),
+            this,
+            SLOT(positionUpdated(QGeoPositionInfo)));
+
+        connect(
+            gpsSource,
+            SIGNAL(error(QGeoPositionInfoSource::Error)),
+            this,
+            SLOT(positionError(QGeoPositionInfoSource::Error)));
+
+        gpsSource->startUpdates();
+    }
+}
+
+// A new position has been reported.
+void MainWindow::positionUpdated(QGeoPositionInfo gpsPos)
+{
+    QGeoCoordinate coord = gpsPos.coordinate();
+    ui->gpsPosition->setText(QString::number(coord.latitude()) + QString(", ") + QString::number(coord.longitude()));
+}
+
+// There was a problem getting the position.
+void MainWindow::positionError(QGeoPositionInfoSource::Error e)
+{
+    ui->gpsPosition->setText("There was an error getting the position.");
 }
 
 MainWindow::~MainWindow()
 {
+    if(gpsSource)
+    {
+        gpsSource->stopUpdates();
+        delete gpsSource;
+    }
+
     delete ui;
 }
 
+// Initiate a Bluetooth scan.
 void MainWindow::on_scanBluetooth_clicked()
 {
     discoveryAgent->start();
@@ -48,9 +101,9 @@ void MainWindow::addDevice(const QBluetoothDeviceInfo &info)
         QListWidgetItem *item = new QListWidgetItem(label);
         ui->bluetoothDevices->addItem(item);
     }
-
 }
 
+// The Bluetooth scan has finished.
 void MainWindow::scanFinished()
 {
 
@@ -105,6 +158,8 @@ void MainWindow::extractAndPopulateYahooNewsItems()
 // A NY Times news item was double-clicked.
 void MainWindow::on_newsListWidget1_itemActivated(QListWidgetItem *item)
 {
+    qDebug("NY Times article activated.");
+
     testapp::NewsListItem *proper = (testapp::NewsListItem *)item;
     ui->webView->setUrl(QUrl(proper->getUrl()));
 }
@@ -112,6 +167,8 @@ void MainWindow::on_newsListWidget1_itemActivated(QListWidgetItem *item)
 // A Yahoo news item was double-clicked.
 void MainWindow::on_newsListWidget2_itemActivated(QListWidgetItem *item)
 {
+    qDebug("Yahoo article activated.");
+
     testapp::NewsListItem *proper = (testapp::NewsListItem *)item;
     ui->webView->setUrl(QUrl(proper->getUrl()));
 }

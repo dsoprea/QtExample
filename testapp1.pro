@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network webkitwidgets bluetooth
+QT       += core gui network webkitwidgets bluetooth positioning
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -4,6 +4,9 @@
 #include <QListWidgetItem>
 
 namespace testapp {
+
+    // This can be added to the news list-widgets as a list-item. It describes the
+    // minimum amount for any one article.
     class NewsListItem : public QListWidgetItem
     {
     public:

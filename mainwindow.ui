@@ -44,7 +44,7 @@
        <height>579</height>
       </rect>
      </property>
-     <widget class="QPushButton" name="readNews">
+     <widget class="QPushButton" name="readNyTimesNews">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -190,6 +190,35 @@
       </property>
       <property name="text">
        <string>Bluetooth devices:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>320</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GPS Position:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gpsPosition">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>320</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
