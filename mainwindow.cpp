@@ -27,9 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     gpsSource = QGeoPositionInfoSource::createDefaultSource(this);
     if(gpsSource == NULL)
     {
-        QString message("No location sources exist.");
+        const char *message = "No location sources exist.";
 
-        qCritical(qPrintable(message));
+        qCritical(message);
         ui->gpsPosition->setText(message);
 
         QStringList sources = QGeoPositionInfoSource::availableSources();
@@ -65,7 +65,7 @@ void MainWindow::positionUpdated(QGeoPositionInfo gpsPos)
 }
 
 // There was a problem getting the position.
-void MainWindow::positionError(QGeoPositionInfoSource::Error e)
+void MainWindow::positionError(QGeoPositionInfoSource::Error)
 {
     ui->gpsPosition->setText("There was an error getting the position.");
 }

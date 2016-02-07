@@ -47,14 +47,14 @@
      <widget class="QPushButton" name="readNyTimesNews">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>140</x>
         <y>250</y>
-        <width>181</width>
+        <width>271</width>
         <height>41</height>
        </rect>
       </property>
       <property name="text">
-       <string>Load News</string>
+       <string>Load NY Times News via API</string>
       </property>
      </widget>
      <widget class="QWebView" name="webView">
@@ -84,14 +84,14 @@
      <widget class="QPushButton" name="loadWebpage">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>680</x>
         <y>260</y>
-        <width>181</width>
+        <width>261</width>
         <height>41</height>
        </rect>
       </property>
       <property name="text">
-       <string>Load Yahoo News</string>
+       <string>Load Yahoo News via Webpage</string>
       </property>
      </widget>
      <widget class="QLabel" name="label">
@@ -112,12 +112,12 @@
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>221</width>
+        <width>361</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>News extracted from NY Times API:</string>
+       <string>News extracted from NY Times API (double-click to open):</string>
       </property>
      </widget>
      <widget class="QListWidget" name="newsListWidget2">
