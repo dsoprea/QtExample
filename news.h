@@ -34,6 +34,7 @@ namespace testapp
 
     private:
         Ui_MainWindow *ui;
+        bool init;
 
         QString url;
         QNetworkAccessManager networkManager;

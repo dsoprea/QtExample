@@ -9,12 +9,12 @@ namespace testapp {
         QString title("Application Error");
         QString text(message);
 
-    // TODO(dustin): Debug why this doesn't present a popup.
+// TODO(dustin): Debug why this doesn't present a popup.
 
    //     QMessageBox(QMessageBox::Critical, title, text, QMessageBox::NoButton, 0);
 
         qCritical(message);
-    // TODO(dustin): Debug why this doesn't terminate (it used to).
+// TODO(dustin): Debug why this doesn't terminate (it used to).
         app->quit();
     }
 }

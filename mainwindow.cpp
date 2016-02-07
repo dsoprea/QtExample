@@ -24,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
         this,
         SLOT(scanFinished()));
 
-    //QGeoPositionInfoSource::setPreferredPositioningMethods(QGeoPositionInfoSource::NonSatellitePositioningMethods);
     gpsSource = QGeoPositionInfoSource::createDefaultSource(this);
     if(gpsSource == NULL)
     {

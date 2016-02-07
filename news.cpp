@@ -5,7 +5,7 @@ namespace testapp
     static const char *NEWS_API_VARIABLE_NAME = "NYTIMES_TOP_STORIES_API_KEY";
     static const char *NEWS_API_URL = "http://api.nytimes.com/svc/topstories/v1/national.json?api-key=%1";
 
-    NewsFeed::NewsFeed(Ui_MainWindow *ui) {
+    NewsFeed::NewsFeed(Ui_MainWindow *ui) : init(false) {
         this->ui = ui;
 
         QProcessEnvironment pe = QProcessEnvironment::systemEnvironment();
@@ -13,8 +13,8 @@ namespace testapp
         QString api_key = pe.value(environmentKey);
 
         if(api_key == QString()) {
-            const char *message = "No news API key found.";
-            testapp::Utility::NotifyErrorAndDie(message);
+            qCritical("No news API key found.");
+            return;
         }
 
         url = QString(NEWS_API_URL).arg(api_key);
@@ -25,14 +25,19 @@ namespace testapp
             SIGNAL(finished(QNetworkReply *)),
             this,
             SLOT(newsReceived(QNetworkReply *)));
+
+        init = true;
     }
 
     // Initiate a news download.
     void NewsFeed::setNyTimesNews() {
-        qDebug("Setting NY Times news.");
+        if(init == true)
+        {
+            qDebug("Setting NY Times news.");
 
 // TODO(dustin): Is there a nicer way to provide the query rather than in a complete URL?
-        networkManager.get(QNetworkRequest(QString(url)));
+            networkManager.get(QNetworkRequest(QString(url)));
+        }
     }
 
     // News content has been received.
