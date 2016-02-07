@@ -25,11 +25,10 @@ namespace testapp
 
     public:
         NewsFeed(Ui_MainWindow *ui);
-        void setTopItems();
+        void setNyTimesNews();
 
-    public slots:
+    private slots:
         void newsReceived(QNetworkReply *);
-        void newsError(QNetworkReply::NetworkError);
 
     private:
         Ui_MainWindow *ui;

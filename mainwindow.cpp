@@ -10,18 +10,56 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    newsFeed = new testapp::NewsFeed();
+    discoveryAgent = new QBluetoothDeviceDiscoveryAgent();
+
+    connect(
+        discoveryAgent,
+        SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
+        this,
+        SLOT(addDevice(QBluetoothDeviceInfo)));
+
+    connect(
+        discoveryAgent,
+        SIGNAL(finished()),
+        this,
+        SLOT(scanFinished()));
 }
 
 MainWindow::~MainWindow()
 {
-//    delete newsFeed;
     delete ui;
 }
 
-void MainWindow::on_readNews_clicked()
+void MainWindow::on_scanBluetooth_clicked()
 {
-    newsFeed.setTopItems();
+    discoveryAgent->start();
+}
+
+// Respond to the signal telling us that a device was found and add it to the list.
+void MainWindow::addDevice(const QBluetoothDeviceInfo &info)
+{
+    QString label = QString("%1 %2").arg(info.address().toString()).arg(info.name());
+
+    // Only add if it's not already in the list. There must be a chance of us being called
+    // multiple times.
+
+    QList<QListWidgetItem *> items = ui->bluetoothDevices->findItems(label, Qt::MatchExactly);
+    if (items.empty()) {
+        QListWidgetItem *item = new QListWidgetItem(label);
+        ui->bluetoothDevices->addItem(item);
+    }
+
+}
+
+void MainWindow::scanFinished()
+{
+
+}
+
+// Respond to the button click on load the NY Times news.
+void MainWindow::on_readNyTimesNews_clicked()
+{
+    newsFeed.setNyTimesNews();
 }
 
 // Load webpage.
@@ -36,6 +74,7 @@ void MainWindow::on_webView_loadFinished(bool)
     extractAndPopulateYahooNewsItems();
 }
 
+// The Yahoo webpage has loaded. Mine the content to grab a list of news items.
 void MainWindow::extractAndPopulateYahooNewsItems()
 {
     QWebFrame *frame = ui->webView->page()->mainFrame();

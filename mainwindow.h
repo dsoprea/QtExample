@@ -7,9 +7,8 @@
 #include <QWebFrame>
 #include <QWebElementCollection>
 #include <QListWidgetItem>
-
-#include <qbluetoothglobal.h>
-#include <qbluetoothlocaldevice.h>
+#include <QBluetoothDeviceInfo>
+#include <QBluetoothDeviceDiscoveryAgent>
 
 // NOTE
 //
@@ -23,6 +22,7 @@
 #include "newslistitem.h"
 
 QT_FORWARD_DECLARE_CLASS(QBluetoothDeviceDiscoveryAgent)
+QT_FORWARD_DECLARE_CLASS(QBluetoothDeviceInfo)
 
 class MainWindow : public QMainWindow
 {
@@ -33,11 +33,15 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_readNews_clicked();
+    void on_readNyTimesNews_clicked();
     void on_loadWebpage_clicked();
     void on_webView_loadFinished(bool arg1);
     void on_newsListWidget1_itemActivated(QListWidgetItem *item);
     void on_newsListWidget2_itemActivated(QListWidgetItem *item);
+    void on_scanBluetooth_clicked();
+
+    void addDevice(const QBluetoothDeviceInfo &info);
+    void scanFinished();
 
 private:
 

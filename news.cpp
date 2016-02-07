@@ -22,27 +22,16 @@ namespace testapp
 
         connect(
             &networkManager,
-            SIGNAL(error(QNetworkReply::NetworkError)),
-            this,
-            SLOT(newsError(QNetworkReply::NetworkError)));
-
-        connect(
-            &networkManager,
             SIGNAL(finished(QNetworkReply *)),
             this,
             SLOT(newsReceived(QNetworkReply *)));
     }
 
     // Initiate a news download.
-    void NewsFeed::setTopItems() {
+    void NewsFeed::setNyTimesNews() {
 
 // TODO(dustin): Is there a nicer way to provide the query rather than in a complete URL?
         networkManager.get(QNetworkRequest(QString(url)));
-    }
-
-    void NewsFeed::newsError(QNetworkReply::NetworkError error)
-    {
-        qCritical("News response totaled resulted in error.");
     }
 
     // News content has been received.

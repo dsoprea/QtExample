@@ -156,6 +156,42 @@
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
      </widget>
+     <widget class="QListWidget" name="bluetoothDevices">
+      <property name="geometry">
+       <rect>
+        <x>145</x>
+        <y>391</y>
+        <width>261</width>
+        <height>131</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="scanBluetooth">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>530</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Scan</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>360</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bluetooth devices:</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
